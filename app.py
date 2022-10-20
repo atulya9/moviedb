@@ -18,13 +18,13 @@ def movie_details(id):
     To return the movie details
     '''
     try:
-        movies = json.load(open('movies.json'))
+        movies = json.load(open('movies.json'))                                                     # To open movies.json
         details = {}
-        details['id'] = id
+        details['id'] = id                                                                          # Creating the dict as per the required values
         for item in movies[id]:
             details[item] = movies[id][item]
         return details
-    except Exception as e:
+    except Exception as e:                                                                          # In case an error occurs
         return f'Request failed'
 
 if __name__ == '__main__':
