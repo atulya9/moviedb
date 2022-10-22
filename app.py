@@ -25,7 +25,7 @@ def movie_details(id):
             details[item] = movies[id][item]
         return details
     except Exception as e:                                                                          # In case an error occurs
-        return f'Request failed'
+        return 'Request failed'
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port='8080')
