@@ -1,6 +1,6 @@
 from crypt import methods
 from flask import Flask
-import json
+import sqlite3
 
 app = Flask(__name__)
 
@@ -17,15 +17,23 @@ def movie_details(id):
     '''
     To return the movie details
     '''
-    try:
-        movies = json.load(open('movies.json'))                                                     # To open movies.json
-        details = {}
-        details['id'] = id                                                                          # Creating the dict as per the required values
-        for item in movies[id]:
-            details[item] = movies[id][item]
-        return details
-    except Exception as e:                                                                          # In case an error occurs
-        return 'Request failed'
+    with sqlite3.connect('movies.db') as conn:
+        cursor_obj = conn.cursor()
+        id_int = int(id)
+
+        data = cursor_obj.execute("SELECT * FROM movies WHERE id=?", (id_int, )).fetchone()
+
+        dic = {}
+        try:
+            dic["id"] = data[0]
+            dic["title"] = data[1]
+            dic["poster_path"] = data[2]
+            dic["language"] = data[3]
+            dic["overview"] = data[4]
+            dic["release_date"] = data[5]
+            return dic
+        except:
+            return f'Request failed'
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port='8080')

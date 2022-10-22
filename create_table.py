@@ -25,8 +25,7 @@ with sqlite3.connect('movies.db') as conn:
     cursor_obj.execute('''INSERT INTO movies VALUES(4, '12 Angry Men', 'https://www.imdb.com/title/tt0111161/mediaviewer/rm2927108352/', 'English', 'The jury in a New York City murder trial is frustrated by a single member whose skeptical caution forces them to more carefully consider the evidence before jumping to a hasty verdict.', '10 April 1957')''')
 
     print('Data inserted in table: ')
-    data = cursor_obj.execute('''SELECT * FROM movies''')
-    print(type(data))
+    data = cursor_obj.execute('''SELECT * FROM movies''').fetchall()
     for row in data:
         print(row)
 
