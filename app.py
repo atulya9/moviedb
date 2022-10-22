@@ -21,8 +21,10 @@ def movie_details(id):
         cursor_obj = conn.cursor()
         id_int = int(id)
 
+        # Getting the data from SQL Table
         data = cursor_obj.execute("SELECT * FROM movies WHERE id=?", (id_int, )).fetchone()
 
+        # Saving data from SQL result to dictionary
         dic = {}
         try:
             dic["id"] = data[0]
@@ -33,6 +35,7 @@ def movie_details(id):
             dic["release_date"] = data[5]
             return dic
         except:
+            # In case there is an error
             return f'Request failed'
 
 if __name__ == '__main__':
